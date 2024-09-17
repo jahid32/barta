@@ -57,7 +57,7 @@
                     @if(Auth::user()->avatar)
                     <img
                       class="h-8 w-8 rounded-full"
-                      src="{{ Storage::url(Auth::user()->avatar) }}"
+                      src="{{ asset(Auth::user()->avatar) }}"
                       alt="{{ Auth::user()->first_name }}" />
                     @endif
                   </button>

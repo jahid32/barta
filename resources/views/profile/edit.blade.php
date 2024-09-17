@@ -23,7 +23,7 @@
                         <div class="mt-2 flex items-center gap-x-3">
                             <input class="hidden" type="file" name="avatar" id="avatar" />
                             @if ($user->avatar)
-                                <img class="h-12 w-12 rounded-full" src="{{ Storage::url($user->avatar) }}"
+                                <img class="h-12 w-12 rounded-full" src="{{ asset($user->avatar) }}"
                                     alt="{{ $user->first_name }}" />
                             @else
                                 <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor"
@@ -33,8 +33,6 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             @endif
-
-
                             <label for="avatar">
                                 <div
                                     class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
