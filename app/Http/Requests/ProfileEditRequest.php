@@ -28,6 +28,7 @@ class ProfileEditRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:80'],
             'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore(Auth::id()),],
             'password' => ['nullable','string', 'min:8'],
+            'avatar' => ['nullable', 'image'],
         ];
     }
 }
