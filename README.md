@@ -23,6 +23,8 @@ Clone the repository
 ```
 git clone https://github.com/jahid32/barta.git 
 
+cd barta
+
 composer install
 
 php artisan serve
