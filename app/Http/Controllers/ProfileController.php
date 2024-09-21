@@ -2,46 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileEditRequest;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function show()
+    /**
+     * Display the user's profile form.
+     */
+    public function edit(Request $request): View
     {
-
-        return view('profile.show', ['user' => Auth::user()]);
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
     }
 
-    public function edit()
+    /**
+     * Update the user's profile information.
+     */
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        return view('profile.edit', ['user' => Auth::user()]);
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    public function update(ProfileEditRequest $request)
+    /**
+     * Delete the user's account.
+     */
+    public function destroy(Request $request): RedirectResponse
     {
-        $user = Auth::user();
-      
-        $updated_data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'bio' => $request->bio,
-        ];
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
 
-        if($request->file('avatar')->isValid()) {
-            $updated_data['avatar'] = $request->file('avatar')->storePublicly('avatars');
-        }
-        if($user->email === $request->email) {
-            $updated_data['email'] = $request->email;
-        }
-        if($request->password) {
-            $updated_data['password'] = Hash::make($request->password);
-        }
+        $user = $request->user();
 
-        DB::table('users')->where('id', $user->id)->update($updated_data);
+        Auth::logout();
 
-        return redirect()->route('profile');
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 }

@@ -1,59 +1,47 @@
 <x-guest-layout>
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <a href="/" class="text-center text-6xl font-bold text-gray-900">
-            <h1>Barta</h1>
-        </a>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
-        </h1>
-    </div>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" action="{{ route('login') }}" method="POST">
-            @csrf
+        <!-- Email Address -->
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
 
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div class="text-red-500">{{ $error }}</div>
-                @endforeach 
+        <!-- Password -->
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+            </label>
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
             @endif
 
-            
-            <div>
-                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                <div class="mt-2">
-                    <input id="email" name="email" type="email" autocomplete="email"
-                        placeholder="bruce@wayne.com" required
-                        class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" />
-                </div>
-            </div>
-
-            <div>
-                <div class="flex items-center justify-between">
-                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                    <div class="text-sm">
-                        <a href="#" class="font-semibold text-black hover:text-black">Forgot password?</a>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input id="password" name="password" type="password" autocomplete="current-password"
-                        placeholder="••••••••" required
-                        class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" />
-                </div>
-            </div>
-
-            <div>
-                <button type="submit"
-                    class="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
-                    Sign in
-                </button>
-            </div>
-        </form>
-
-        <p class="mt-10 text-center text-sm text-gray-500">
-            Don't have an account yet?
-            <a href="{{ route('register') }}" class="font-semibold leading-6 text-black hover:text-black">Sign Up</a>
-        </p>
-    </div>
+            <x-primary-button class="ms-3">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
+    </form>
 </x-guest-layout>
