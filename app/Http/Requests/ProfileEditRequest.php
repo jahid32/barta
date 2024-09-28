@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ProfileEditRequest extends FormRequest
 {
@@ -26,8 +26,8 @@ class ProfileEditRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:80'],
             'last_name' => ['required', 'string', 'max:80'],
-            'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore(Auth::id()),],
-            'password' => ['nullable','string', 'min:8'],
+            'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore(Auth::id())],
+            'password' => ['nullable', 'string', 'min:8'],
             'avatar' => ['nullable', 'image'],
         ];
     }

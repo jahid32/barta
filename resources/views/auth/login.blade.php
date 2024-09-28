@@ -1,8 +1,8 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
+    <h2 class="mt-10 mb-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+    <form method="POST" action="{{ route('login') }}" class="space-y-6">
         @csrf
 
         <!-- Email Address -->
@@ -14,7 +14,14 @@
 
         <!-- Password -->
         <div class="mt-4">
+            <div class="flex justify-between">
             <x-input-label for="password" :value="__('Password')" />
+            @if (Route::has('password.request'))
+                <a class=``1xt-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
+            </div>
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -33,15 +40,13 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+            <x-primary-button class="">
+                {{ __('Sign in') }}
             </x-primary-button>
         </div>
+        <p class="mt-10 text-center text-sm text-gray-500">
+          Don't have an account yet?
+          <a href="{{ route('register') }}" class="font-semibold leading-6 text-black hover:text-black">Sign Up</a>
+        </p>
     </form>
 </x-guest-layout>
