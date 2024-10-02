@@ -3,19 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function index() : View
+    public function index(): View
     {
         $user = Auth::user();
-        return view('profile.index', compact('user'));
-    }  
+        $posts = Post::where('user_id', $user->id)->with('user')->get();
+
+        return view('profile.index', compact('user', 'posts'));
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -36,6 +41,11 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        if (auth()->user()->avatar) {
+            Storage::disk('public')->delete(auth()->user()->avatar);
+        }
+        $request->user()->avatar = $request->file('avatar')->store('avatars', 'public');
 
         $request->user()->save();
 

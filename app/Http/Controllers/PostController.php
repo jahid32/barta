@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -29,7 +29,14 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $post = Post::create(
+            [
+                'content' => $request->content,
+                'user_id' => $request->user()->id,
+            ]
+        );
+
+        return redirect()->route('discover');
     }
 
     /**
@@ -37,7 +44,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('post.show', [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -45,7 +54,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('post.edit', [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -53,7 +64,10 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -61,6 +75,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if ($post->user_id !== auth()->user()->id) {
+            return redirect()->route('discover');
+        }
+        $post->delete();
+
+        return redirect()->route('profile.index');
     }
 }
