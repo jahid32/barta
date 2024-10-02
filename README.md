@@ -9,7 +9,9 @@ Make sure to check the code in 'assignment-1' branch, not the 'main' branch.
 
 
 The features you need to implement this week:
-
+## Assignment Branch
+- Assignment 7 -> main/assignment-8
+- Assignment 8 -> assignment-8
 ## To-Do
 
 - [x] User registration.
