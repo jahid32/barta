@@ -29,6 +29,8 @@ git checkout assignment-8
 
 composer install
 
+php artisan storage:link
+
 php artisan serve
 ```
 
