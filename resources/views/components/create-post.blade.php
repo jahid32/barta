@@ -33,20 +33,20 @@
     <!-- Create Post Card Bottom -->
     <div>
       <!-- Card Bottom Action Buttons -->
-      <div class="flex items-center justify-end">
-        {{-- <div class="flex gap-4 text-gray-600">
+      <div class="flex items-center justify-between">
+        <div class="flex gap-4 text-gray-600">
           <!-- Upload Picture Button -->
           <div>
             <input
               type="file"
-              name="picture"
-              id="picture"
+              name="image"
+              id="image"
               class="hidden" />
 
             <label
-              for="picture"
+              for="image"
               class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800 cursor-pointer">
-              <span class="sr-only">Picture</span>
+              <span class="sr-only">Image</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -102,7 +102,7 @@
             </svg>
           </button>
           <!-- /Emoji Button -->
-        </div> --}}
+        </div>
 
         <div>
           <!-- Post Button -->

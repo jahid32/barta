@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Post;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -21,6 +22,13 @@ class ProfileController extends Controller
         return view('profile.index', compact('user', 'posts'));
     }
 
+    public function show(User $user): View
+    {
+        return view('profile.show', [
+            'user' => $user,
+            'posts' => $user->posts()->with('user')->get(),
+        ]);
+    }
     /**
      * Display the user's profile form.
      */
@@ -45,7 +53,10 @@ class ProfileController extends Controller
         if (auth()->user()->avatar) {
             Storage::disk('public')->delete(auth()->user()->avatar);
         }
-        $request->user()->avatar = $request->file('avatar')->store('avatars', 'public');
+
+        if ($request->hasFile('avatar')) {
+            $request->user()->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
 
         $request->user()->save();
 

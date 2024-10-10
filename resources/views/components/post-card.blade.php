@@ -16,15 +16,17 @@
 
       <!-- User Info -->
       <div class="text-gray-900 flex flex-col min-w-0 flex-1">
-        <span
+        <a 
+          href="{{ route('profile.show', $post->user->id) }}"
           class="hover:underline font-semibold line-clamp-1">
           {{ $post->user->full_name }}
-        </span>
+        </a>
 
-        <span
+        <a
+          href="{{ route('profile.show', $post->user->id) }}"
           class="hover:underline text-sm text-gray-500 line-clamp-1">
-          {{ $post->user->email }}
-        </span>
+          {{ $post->user->username ?? $post->user->email }}
+        </a>
       </div>
       <!-- /User Info -->
     </div>
@@ -96,6 +98,9 @@
 
 <!-- Content -->
 <div class="py-4 text-gray-700 font-normal">
+  @if ($post->image)
+    <img src="{{ asset('storage/' . $post->image) }}" class="w-full object-cover" />
+  @endif
   <a href="{{ route('posts.show', $post) }}">
   {{ $post->content }}
   </a>
