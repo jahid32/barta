@@ -3,20 +3,19 @@
 ## Description
 This week, you'll add some interesting features to the Barta app.
 
-Make sure to check the code in the 'assignment-2' branch, not the 'main' branch. (Link attached below)
+Make sure to check the code in the 'assignment-3' branch, not the 'main' branch. (Link attached below)
 
-[MarkUp Repo](https://github.com/alnahian2003/barta-template/tree/assignment-2?authuser=0)
+[MarkUp Repo](https://github.com/alnahian2003/barta-template/tree/assignment-3?authuser=0)
 
 
 The features you need to implement this week:
 
 ## Assignment Tasks
 
-- [x] Create post
-- [x] View single post
-- [x] Edit post (only by the author)
-- [x] Delete post (only by the author)
-- [x] Show all posts on Home feed
+- [x] Instead of DB query builder, use the Eloquent model.
+- [x] Users should be able to post images in the post (only one image per post).
+- [x] Users should be able to add profile pictures.
+- [x] Implement search functionality with user nick name, user full name or email
 
 ## Running the Project
 
@@ -26,7 +25,7 @@ git clone https://github.com/jahid32/barta.git
 
 cd barta
 
-git checkout assignment-8
+git checkout assignment-9
 
 composer install
 
