@@ -29,8 +29,8 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        
-        if($request->hasFile('image')) {
+
+        if ($request->hasFile('image')) {
             $image = $request->file('image')->store('images', 'public');
         }
 
@@ -38,7 +38,7 @@ class PostController extends Controller
             [
                 'content' => $request->content,
                 'user_id' => $request->user()->id,
-                'image' => $image ?? null
+                'image' => $image ?? null,
             ]
         );
 

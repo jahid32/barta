@@ -9,11 +9,15 @@ class SearchController extends Controller
 {
     public function index(Request $request)
     {
-        $query = $request->input('q');
-        $posts = Post::where('content', 'like', "%$query%")->get();
-        return view('search', [
+        $request->validate([
+            'query' => 'required|string|max:255',
+        ]);
+
+        $searchTerm = $request->input('query');
+        $posts = Post::searchByUser($searchTerm)->get();
+
+        return view('post.search', [
             'posts' => $posts,
-            'query' => $query
         ]);
     }
 }

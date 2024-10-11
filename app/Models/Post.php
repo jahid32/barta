@@ -19,4 +19,16 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function searchByUser($query)
+    {
+
+        return self::with('user')
+            ->whereHas('user', function ($q) use ($query) {
+                $q->where('username', 'like', "%{$query}%")
+                    ->orWhere('first_name', 'like', "%{$query}%")
+                    ->orWhere('last_name', 'like', "%{$query}%")
+                    ->orWhereRaw("(first_name || ' ' || last_name) LIKE ?", ["%{$query}%"]);
+            });
+    }
 }
