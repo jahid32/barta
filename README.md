@@ -10,8 +10,9 @@ Make sure to check the code in 'assignment-1' branch, not the 'main' branch.
 
 The features you need to implement this week:
 ## Assignment Branch
-- Assignment 7 -> main/assignment-8
+- Assignment 7 -> main/assignment-7
 - Assignment 8 -> assignment-8
+- Assignment 9 -> assignment-9
 ## To-Do
 
 - [x] User registration.
@@ -28,6 +29,8 @@ git clone https://github.com/jahid32/barta.git
 cd barta
 
 composer install
+
+php artisan storage:link
 
 php artisan serve
 ```
