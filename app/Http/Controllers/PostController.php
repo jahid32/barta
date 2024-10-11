@@ -70,6 +70,11 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('images', 'public');
+        }
+
+        $post->image = $image ?? $post->image;
         $post->content = $request->content;
         $post->save();
 
