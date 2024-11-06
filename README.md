@@ -17,6 +17,11 @@ The features you need to implement this week:
 - [x] Users should be able to add profile pictures.
 - [x] Implement search functionality with user nick name, user full name or email
 
+## Assignment Branch
+- Assignment 7 -> assignment-7
+- Assignment 8 -> assignment-8
+- Assignment 9 -> main/assignment-9
+
 ## Running the Project
 
 Clone the repository 
@@ -25,7 +30,7 @@ git clone https://github.com/jahid32/barta.git
 
 cd barta
 
-git checkout assignment-9
+git checkout main
 
 composer install
 
@@ -33,5 +38,3 @@ php artisan storage:link
 
 php artisan serve
 ```
-
-
