@@ -1,24 +1,26 @@
-<h1 align="center">Build the foundation of the Barta app</h1>
+<h1 align="center">Build basic features</h1>
 
 ## Description
-In the given link below, you'll find the template for the Barta app! 
+This week, you'll add some interesting features to the Barta app.
 
-[MarkUp Repo](https://github.com/alnahian2003/barta-template/tree/assignment-1?authuser=0)
+Make sure to check the code in the 'assignment-3' branch, not the 'main' branch. (Link attached below)
 
-Make sure to check the code in 'assignment-1' branch, not the 'main' branch.
+[MarkUp Repo](https://github.com/alnahian2003/barta-template/tree/assignment-3?authuser=0)
 
 
 The features you need to implement this week:
-## Assignment Branch
-- Assignment 7 -> main/assignment-7
-- Assignment 8 -> assignment-8
-- Assignment 9 -> assignment-9
-## To-Do
 
-- [x] User registration.
-- [x] User login
-- [x] User profile view
-- [x] User profile update
+## Assignment Tasks
+
+- [x] Instead of DB query builder, use the Eloquent model.
+- [x] Users should be able to post images in the post (only one image per post).
+- [x] Users should be able to add profile pictures.
+- [x] Implement search functionality with user nick name, user full name or email
+
+## Assignment Branch
+- Assignment 7 -> assignment-7
+- Assignment 8 -> assignment-8
+- Assignment 9 -> main/assignment-9
 
 ## Running the Project
 
@@ -28,11 +30,11 @@ git clone https://github.com/jahid32/barta.git
 
 cd barta
 
+git checkout main
+
 composer install
 
 php artisan storage:link
 
 php artisan serve
 ```
-
-
