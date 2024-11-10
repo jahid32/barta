@@ -2,46 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileEditRequest;
+use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function show()
-    {
-
-        return view('profile.show', ['user' => Auth::user()]);
-    }
-
-    public function edit()
-    {
-        return view('profile.edit', ['user' => Auth::user()]);
-    }
-
-    public function update(ProfileEditRequest $request)
+    public function index(): View
     {
         $user = Auth::user();
-      
-        $updated_data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'bio' => $request->bio,
-        ];
+        $posts = Post::where('user_id', $user->id)->with('user')->get();
 
-        if($request->file('avatar')->isValid()) {
-            $updated_data['avatar'] = $request->file('avatar')->storePublicly('avatars');
-        }
-        if($user->email === $request->email) {
-            $updated_data['email'] = $request->email;
-        }
-        if($request->password) {
-            $updated_data['password'] = Hash::make($request->password);
+        return view('profile.index', compact('user', 'posts'));
+    }
+
+    public function show(User $user): View
+    {
+        return view('profile.show', [
+            'user' => $user,
+            'posts' => $user->posts()->with('user')->get(),
+        ]);
+    }
+
+    /**
+     * Display the user's profile form.
+     */
+    public function edit(Request $request): View
+    {
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
+     * Update the user's profile information.
+     */
+    public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
         }
 
-        DB::table('users')->where('id', $user->id)->update($updated_data);
+        if (auth()->user()->avatar) {
+            Storage::disk('public')->delete(auth()->user()->avatar);
+        }
 
-        return redirect()->route('profile');
+        if ($request->hasFile('avatar')) {
+            $request->user()->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Delete the user's account.
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 }
