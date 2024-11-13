@@ -7,7 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 
-class PostList extends Component
+class ShowPosts extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -17,10 +17,10 @@ class PostList extends Component
     public function render()
     {
         if ($this->is_profile) {
-            $posts = auth()->user()->posts()->cursorPaginate(5);
+            $posts = auth()->user()->posts()->orderBy('id', 'desc')->cursorPaginate(5);
         }else{
-            $posts= Post::cursorPaginate(5);
+            $posts= Post::orderBy('id', 'desc')->cursorPaginate(5);
         }
-        return view('livewire.post-list', ['posts' => $posts]);
+        return view('livewire.show-posts', ['posts' => $posts]);
     }
 }
