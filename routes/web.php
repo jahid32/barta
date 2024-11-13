@@ -4,11 +4,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Livewire\PostList;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', [HomeController::class, 'index'])->name('discover');
+    Route::get('/', PostList::class)->name('discover');
     Route::resource('posts', PostController::class);
     Route::get('/search', [SearchController::class, 'index'])->name('search');
 

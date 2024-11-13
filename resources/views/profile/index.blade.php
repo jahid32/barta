@@ -46,7 +46,5 @@
   <!-- /Cover Container -->
   <x-create-post />
  
-  @foreach ($posts as $post)
-    <x-post-card :post="$post" />
-  @endforeach
+  <livewire:show-posts is_profile />
 </x-app-layout>
