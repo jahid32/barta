@@ -1,11 +1,7 @@
-<h1 align="center">Build basic features</h1>
+<h1 align="center">Barta app Home feed using VueJS or Livewire</h1>
 
 ## Description
-This week, you'll add some interesting features to the Barta app.
-
-Make sure to check the code in the 'assignment-3' branch, not the 'main' branch. (Link attached below)
-
-[MarkUp Repo](https://github.com/alnahian2003/barta-template/tree/assignment-3?authuser=0)
+Use VueJS or Livewire to implement the 'Home feed' of the Barta app. First load only 10 posts in the home feed and there should be a 'Show more' button at the end of the page to load more content. Or you can load more content when the user scrolls down to the page. It's up to you. 
 
 
 The features you need to implement this week:
@@ -18,10 +14,8 @@ The features you need to implement this week:
 
 ## Assignment Tasks
 
-- [x] Instead of DB query builder, use the Eloquent model.
-- [x] Users should be able to post images in the post (only one image per post).
-- [x] Users should be able to add profile pictures.
-- [x] Implement search functionality with user nick name, user full name or email
+- [x] Updated Home feed with livewire
+
 
 ## Running the Project
 
