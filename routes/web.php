@@ -5,12 +5,17 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Livewire\ShowPosts;
+use App\Livewire\SinglePost;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/', ShowPosts::class)->name('discover');
-    Route::resource('posts', PostController::class);
+    Route::get('/posts/{post}', SinglePost::class)->name('posts.show');
+
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+
     Route::get('/search', [SearchController::class, 'index'])->name('search');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');

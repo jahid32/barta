@@ -69,4 +69,10 @@ class User extends Authenticatable
             get: fn () => $this->avatar ? asset('storage/'.$this->avatar) : 'https://ui-avatars.com/api/?name='.$this->first_name.'+'.$this->last_name.'&background=random'
         );
     }
+    public function likedPosts() {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 }
