@@ -6,10 +6,10 @@ This week, you need to implement the following features.
 
 ## Assignment Tasks
 
-- [] Like feature in posts.
+- [x] Like feature in posts.
 - [] When someone likes a user's post, he/she should get an in-app notification.
 - [] When someone comments on a user's post, he/she should get an in-app and email notification. 
-- []  It'd be great if you could implement the 'in-app' real-time notifications using Laravel broadcasting. 
+- [] It'd be great if you could implement the 'in-app' real-time notifications using Laravel broadcasting. 
 
 
 

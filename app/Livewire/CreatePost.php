@@ -13,18 +13,24 @@ class CreatePost extends Component
     
     #[Validate('required|min:3')] 
     public $content = '';
-    #[Validate('image|mimes:jpeg,png,jpg,gif,svg|max:2048')] 
+    #[Validate('nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048')] 
     public  $picture = null;
 
     public function save(){
         $this->validate();
+
         $imagePath  = $this->picture ? $this->picture->store(path: 'photos') : null;
+
         Post::create([
             'content' => $this->content,
             'user_id' => auth()->user()->id,
             'image' => $imagePath
         ]);
+
         $this->content = '';
+        $this->picture = null;
+
+        return redirect()->route('discover');
  
     }
 }

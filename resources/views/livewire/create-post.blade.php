@@ -1,5 +1,7 @@
 <form wire:submit="save" enctype="multipart/form-data" class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6 space-y-3">
         <!-- Create Post Card Top -->
+        @error('picture') <span class="error color-red-500">{{ $message }}</span> @enderror 
+           @error('content') <span class="error  color-red-500">{{ $message }}</span> @enderror 
         <div>
           <div class="flex items-start /space-x-3/">
             <!-- User Avatar -->
@@ -16,6 +18,7 @@
             <div class="text-gray-700 font-normal w-full">
               <textarea wire:model="content" class="block w-full p-2 pt-2 text-gray-900 rounded-lg border-none outline-none focus:ring-0 focus:ring-offset-0" name="barta" rows="2" placeholder="What's going on, {{ auth()->user()->full_name }}?"></textarea>
             </div>
+          
           </div>
         </div>
 

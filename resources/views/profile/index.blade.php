@@ -44,7 +44,6 @@
         <!-- /Edit Profile Button -->
     </section>
   <!-- /Cover Container -->
-  <x-create-post />
  
   <livewire:show-posts is_profile />
 </x-app-layout>

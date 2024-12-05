@@ -1,8 +1,10 @@
  <!-- Barta Create Comment Form -->
-    <form
-    action=""
-    method="POST">
+    <form wire:submit.prevent="save">
     <!-- Create Comment Card Top -->
+    @error('comment') 
+        <span class="error color-red-500">{{ $message }}</span>
+        
+    @enderror
     <div>
         <div class="flex items-start space-x-3">
         <!-- User Avatar -->
@@ -22,6 +24,7 @@
                     }
                 }"
             x-init="resize()"
+            wire:model="comment"
             @input="resize()"
             type="text"
             name="comment"

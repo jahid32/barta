@@ -69,23 +69,14 @@
                   id="user-menu-item-0"
           >Edit</a
           >
-          <form method="POST" action="{{ route('posts.destroy', $post) }}">
-            @csrf
-            @method('DELETE')
-
-              <x-dropdown-link :href="route('posts.destroy', $post)"
-                      onclick="event.preventDefault();
-                                  this.closest('form').submit();">
-                  {{ __('Deletet') }}
-              </x-dropdown-link>
-          </form>
-          {{-- <a
-                  href="{{ route('posts.destroy', $post) }}"
+          <a
+                  wire:click="delete({{ $post->id }})"
+                  wire:confirm="Are you sure you want to delete this post?"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
                   id="user-menu-item-1"
-          >Delete</a> --}}
+          >Delete</a>
 
         </div>
       </div>
