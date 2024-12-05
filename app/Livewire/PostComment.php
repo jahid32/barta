@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use Mail;
+use Notification;
+
 use Livewire\Component;
-use App\Mail\CommentGiven;
+use App\Notifications\CommentGiven;
 
 class PostComment extends Component
 {
@@ -18,7 +20,8 @@ class PostComment extends Component
             'post_id' => $this->post->id
         ]);
         $this->comment = '';
-        Mail::to($this->post->user->email)->send(new CommentGiven($comment, $this->post));
+       
+        Notification::send($this->post->user, new CommentGiven($comment, $this->post));
     }
     public function render()
     {
