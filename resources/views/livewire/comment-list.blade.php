@@ -1,6 +1,6 @@
 @if($comments)
-<div class="flex flex-col space-y-6">
-    <h1 class="text-lg font-semibold">Comments (3)</h1>
+<div class="flex flex-col w-full  space-y-6">
+    <h1 class="text-lg font-semibold">Comments ({{ $comments->count() }})</h1>
 
     <!-- Barta User Comments Container -->
     <article
@@ -17,22 +17,22 @@
             <div class="flex-shrink-0">
                 <img
                         class="h-10 w-10 rounded-full object-cover"
-                        src="https://avatars.githubusercontent.com/u/61485238"
-                        alt="Al Nahian" />
+                        src="{{ $comment->user->avatar_url }}"
+                        alt="{{ $comment->user->full_name }}" />
             </div>
             <!-- /User Avatar -->
             <!-- User Info -->
             <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                 <a
-                href="profile.html"
+                href="{{ route('profile.show', $comment->user->id) }}"
                 class="hover:underline font-semibold line-clamp-1">
-                Al Nahian
+                {{ $comment->user->full_name }}
                 </a>
 
                 <a
                 href="profile.html"
                 class="hover:underline text-sm text-gray-500 line-clamp-1">
-                @alnahian2003
+                {{ $comment->user->username ?? $comment->user->email }}
                 </a>
             </div>
             <!-- /User Info -->
@@ -42,12 +42,12 @@
 
         <!-- Content -->
         <div class="py-4 text-gray-700 font-normal">
-        <p>আজকে থেকে আমিও একজন PoorPHP ডেভেলপার 😂</p>
+        {{ $comment->content }}
         </div>
 
         <!-- Date Created -->
         <div class="flex items-center gap-2 text-gray-500 text-xs">
-        <span class="">6m ago</span>
+        <span class="">{{ $comment->created_at->diffForHumans() }}</span>
         </div>
     </div>
    @endforeach
